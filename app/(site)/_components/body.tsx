@@ -8,6 +8,8 @@ export const Body = () => {
       className='
         h-[16.8rem]
         w-72
+        md:w-96
+        md:h-96
         mx-auto
         relative
 
@@ -23,7 +25,8 @@ export const Body = () => {
           bg-center
           h-48
           w-48
-
+          md:w-72
+          md:h-72
           absolute
           bottom-3
           transform

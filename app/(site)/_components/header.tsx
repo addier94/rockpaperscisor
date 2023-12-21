@@ -10,12 +10,17 @@ export const Header = () => {
     py-[.62rem]
     pr-[.62rem]
     h-[6.2rem]
+    md:h-[7.6rem]
+    md:py-4
     rounded-md
     flex
     items-center
     justify-between
+    self-center
+    w-full
+    max-w-[34rem]
   ">
-    <figure className="w-[5.4rem]">
+    <figure className="w-[5.4rem] md:w-[7rem]">
       <Image 
         src={"/images/logo.svg"}
         width="0"
@@ -32,6 +37,7 @@ export const Header = () => {
       items-center
       justify-center
       w-[4.8rem]
+      md:w-24
       h-full
       bg-white
       rounded-md

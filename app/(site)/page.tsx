@@ -1,9 +1,9 @@
-import { RpsList } from "./_components/rps-list";
+import { Body } from "./_components/body";
 
 export default function Home() {
   return (
     <>
-      <RpsList />
+      <Body />
     </>
   )
 }
