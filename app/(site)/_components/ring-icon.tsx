@@ -6,13 +6,15 @@ interface RingIcon {
   altText: string;
   ringColorStart: string;
   ringColorEnd: string;
+  onClick?: () => void;
 }
 
 const RingIcon: React.FC<RingIcon> = (
-  { iconSrc, altText, ringColorStart, ringColorEnd }) => {
+  { iconSrc, altText, ringColorStart, ringColorEnd, onClick }) => {
 
   return (
     <button
+      onClick={onClick}
       className={clsx(
         'w-24',
         'h-24',

@@ -1,61 +1,85 @@
-import Image from 'next/image'
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import RingIcon from './ring-icon'
+import { Outcome } from './outcome'
+import { GameShape, gameOptions } from '@/app/helper/game-options'
+
+interface GameOptionProps {
+  onclick: () => void
+  option: GameShape
+}
+
+const GameOption = ({ onclick, option}: GameOptionProps) => (
+  <RingIcon 
+    onClick={onclick}
+    iconSrc={option.iconSrc}
+    altText={option.altText}
+    ringColorStart={option.ringColorStart}
+    ringColorEnd={option.ringColorEnd}
+  />
+)
 
 export const Body = () => {
-  return (
-    <main
-      className='
-        h-[16.8rem]
-        w-72
-        md:w-96
-        md:h-96
-        mx-auto
-        relative
+  const [isOutComeVisible, setIsOutcomeVisible] = useState(false)
+  const [selectedOption, setSelectedOption] = useState<GameShape>(gameOptions.rock)
 
-        flex
-        flex-col
-        justify-around
-      '
-    >
-      <div
-        style={{ backgroundImage: "url(/images/bg-triangle.svg)" }}
-        className="
-          bg-cover
-          bg-center
-          h-48
-          w-48
-          md:w-72
-          md:h-72
-          absolute
-          bottom-3
-          transform
-          left-1/2
-          translate-x-[-50%]
-        "
-      />
-      <div className='flex justify-between'>
-        <RingIcon 
-          iconSrc={"/images/icon-paper.svg"}
-          altText={"Paper Icon"}
-          ringColorStart={"ring-primary-paper-gradient-start"}
-          ringColorEnd={"after:ring-primary-paper-gradient-end/50"}
+  const rockOptions: GameShape = gameOptions['rock']
+  const paperOptions: GameShape = gameOptions['paper']
+  const scissorsOptions: GameShape = gameOptions['scissors']
+
+  const handleChooseGameOption = (option: keyof typeof gameOptions) => {
+    setIsOutcomeVisible(true)
+    setSelectedOption(gameOptions[option])
+  }
+
+  return (
+    <>
+      {isOutComeVisible ? (
+        <Outcome 
+          selectedOption={selectedOption}
+          setIsOutComeVisible={() => setIsOutcomeVisible(false)} 
         />
-        <RingIcon 
-          iconSrc={"/images/icon-scissors.svg"}
-          altText={"Scissors Icon"}
-          ringColorStart={"ring-primary-scissors-gradient-start"}
-          ringColorEnd={"after:ring-primary-scissors-gradient-end/50"}
-        />
-      </div>
-      <div className='flex justify-center'>
-        <RingIcon 
-          iconSrc={"/images/icon-rock.svg"}
-          altText={"Rock Icon"}
-          ringColorStart={"ring-primary-rock-gradient-start"}
-          ringColorEnd={"after:ring-primary-rock-gradient-end/50"}
-        />
-      </div>
-    </main>
+      ) : (
+        <main
+          className='
+            h-[16.8rem]
+            w-72
+            md:w-96
+            md:h-96
+            mx-auto
+            relative
+
+            flex
+            flex-col
+            justify-around
+          '
+        >
+          <div
+            style={{ backgroundImage: "url(/images/bg-triangle.svg)" }}
+            className="
+              bg-cover
+              bg-center
+              h-48
+              w-48
+              md:w-72
+              md:h-72
+              absolute
+              bottom-3
+              transform
+              left-1/2
+              translate-x-[-50%]
+            "
+          />
+          <div className='flex justify-between'>
+            <GameOption onclick={() => handleChooseGameOption('paper')} option={paperOptions} />
+            <GameOption onclick={() => handleChooseGameOption('scissors')} option={scissorsOptions} />
+          </div>
+          <div className='flex justify-center'>
+            <GameOption onclick={() => handleChooseGameOption('rock')} option={rockOptions} />
+          </div>
+        </main>
+      )}
+    </>
   )
 }
