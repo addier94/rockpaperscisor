@@ -1,6 +1,9 @@
 import { GameShape, gameOptions } from "@/app/helper/game-options"
 import RingIcon from "./ring-icon"
 import { defineTheWinner } from "@/app/helper/get-winner"
+import { counterState } from '../../store/recoilStore';
+import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 
 const selectedOptionRandomly = ():GameShape => {
   const generateRandomNumberFrom0To2 = Math.floor(Math.random() * 3)
@@ -23,8 +26,25 @@ export const Outcome = ({
   setIsOutComeVisible, 
   selectedOption
 }: OutcomeProps) => {
-  const randomlySelectedOption = selectedOptionRandomly()
-  const winner = defineTheWinner(selectedOption.name, randomlySelectedOption.name)
+  const [randomlySelected, setRandomlySelected] = useState<GameShape | null>(null)
+  const [theWinner, setTheWinner] = useState('')
+  const [counter, setCounter] = useRecoilState(counterState);
+
+  useEffect(() => {
+    const randomSelected = selectedOptionRandomly()
+    const winner = defineTheWinner(selectedOption.name, randomSelected.name)
+    setTheWinner(winner)
+    setRandomlySelected(randomSelected)
+  },[selectedOption])
+
+  useEffect(() => {
+    if(theWinner === 'YOU WIN') {
+      setCounter(prevCounter => prevCounter + 1)
+    } else if (theWinner === 'YOU LOSE') {
+      setCounter(prevCounter => prevCounter - 1)
+    }
+  }, [theWinner, setCounter])
+
   return (
     <article className="
       w-full
@@ -70,10 +90,10 @@ export const Outcome = ({
           "
         >
           <RingIcon 
-            iconSrc={randomlySelectedOption.iconSrc}
-            altText={randomlySelectedOption.altText}
-            ringColorStart={randomlySelectedOption.ringColorStart}
-            ringColorEnd={randomlySelectedOption.ringColorEnd}
+            iconSrc={randomlySelected?.iconSrc!}
+            altText={randomlySelected?.altText!}
+            ringColorStart={randomlySelected?.ringColorStart!}
+            ringColorEnd={randomlySelected?.ringColorEnd!}
           />
         </div>
         <p className="
@@ -102,7 +122,7 @@ export const Outcome = ({
           md:col-start-2
           md:col-end-3
         ">
-          <h1 className="text-5xl font-600">{winner}</h1>
+          <h1 className="text-5xl font-600">{theWinner}</h1>
           <button
             onClick={setIsOutComeVisible}
             className="

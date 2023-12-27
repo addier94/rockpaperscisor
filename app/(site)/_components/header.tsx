@@ -1,7 +1,13 @@
+'use client'
+
+import { counterState } from '@/app/store/recoilStore'
 import Image from 'next/image'
 import React from 'react'
+import { useRecoilState } from 'recoil'
 
 export const Header = () => {
+  const [counter] = useRecoilState(counterState)
+
   return (
     <header className="
     border-[3px] 
@@ -48,7 +54,7 @@ export const Header = () => {
         text-neutral-score-text">SCORE</span>
       <span className="
         text-4xl
-        text-neutral-dark-text">12</span>
+        text-neutral-dark-text">{counter}</span>
     </p>
   </header>
   )

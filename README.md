@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Mentor - Rock, Paper, Scissors solution
 
-## Getting Started
+![Design preview for the Rock, Paper, Scissors coding challenge](./public/desktop-preview.jpg)
 
-First, run the development server:
+## Welcome!
+Thanks  for checking out this front-end coding challenge.
+[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects
+**To take on this challenge, you'll need a basic understanding of HTML, CSS, JavaScript, and a bit of knowledge in React.js, along with familiarity with Tailwind CSS will be god idea**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### The challenge
+
+Users should be able to:
+
+- View the optimal layout for the game depending on their device's screen size
+- Play Rock, Paper, Scissors against the computer
+- Maintain the state of the score after refreshing the browser _(optional)_
+- **Bonus**: Play Rock, Paper, Scissors, Lizard, Spock against the computer _(optional)_
+
+### Rules 
+
+If the player wins, they gain 1 point. if the computer wins, the player loses one point.
+
+### original
+
+- Paper beats Rock
+- Rock beats Scissors
+- Scissors beats Paper
+
+### Links
+
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+
+## My process
+
+### Built with
+
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [Next.js](https://nextjs.org/) - React framework
+- [Tailwind CSS](https://tailwindcss.com/) - For styles
+- [TypeScript](https://www.typescriptlang.org/) - supersets
+
+### What I learned
+
+I implemented Recoil and found it to be much simpler compared to React Context. 
+The only thing i had to do was...
+```javascript
+import { atom } from 'recoil'
+
+
+export const counterState = atom({
+  key: 'counterState',
+  default: 0
+})
 ```
+The next thing i did was wrap it in `Layout.tsx`
+```javascript
+  <html lang="en">
+    <body className='font-barlow-semi-condensed'>
+      <RecoilRoot>
+      <div
+        className="
+          bg-gradient-to-b 
+          from-background-radial-gradient-start 
+          to-background-radial-gradient-end
+          min-h-screen
+          text-white
+          h-full
+          p-8
+          flex
+          flex-col
+          justify-between
+          gap-6
+        "
+      >
+        <Header />
+          {children}
+        <Footer />
+      </div>
+      </RecoilRoot>
+    </body>
+  </html>
+```
+Just by doing that, I was ready to start working with it.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Continued development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Later, when implementing authentication in this project, would it be a good idea to incorporate Socket.IO for creating a ***real-time*** game
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Useful resources
 
-## Learn More
+- [Reactjs](https://react.dev/) - I find myself coming to this site often, it's really helpful, when i'm working with React.
 
-To learn more about Next.js, take a look at the following resources:
+## Author
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Website - [Alfredo](https://www.fernandezalfredo.com)
+- Frontend Mentor - [@addier94](https://www.frontendmentor.io/profile/addier94)
+- Twitter - [@addier94](https://twitter.com/addier94)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Acknowledgments
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+It was a solo effort, and I appreciate the opportunity to independently design and implement each aspect of the application
